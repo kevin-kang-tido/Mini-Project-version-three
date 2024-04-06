@@ -8,8 +8,22 @@ import FooterComponent from "@/components/layout/footer/FooterComponent";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cam Shop",
-  description: "welcome to cam shop comapany",
+  title: {
+    template: "%s - CAM SHOP",
+    default: "CAM SHOP",
+  },
+  description: "This is description cam shop",
+  keywords: ["shop", "ecommerce", "sell"],
+  openGraph: {
+    title: {
+      template: "%s - MyShop",
+      default: "MyShop",
+    },
+    description: "This is description shop",
+    images: [
+      "https://i.pinimg.com/564x/1b/59/6c/1b596cad48dcf9804be7e0ac90b0693f.jpg",
+    ],
+  },
 };
 export default function RootLayout({
   children,

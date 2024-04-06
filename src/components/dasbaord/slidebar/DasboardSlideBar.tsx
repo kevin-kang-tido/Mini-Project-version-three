@@ -36,9 +36,9 @@ export default function DasboardSlideBar() {
               return <IconComponent aria-hidden className={twMerge(theme.label.icon.open[open ? 'on' : 'off'])} />;
             }}
           >
-            <Sidebar.Item href="#">Products</Sidebar.Item>
-            <Sidebar.Item href="#">Sales</Sidebar.Item>
-            <Sidebar.Item href="#">Refunds</Sidebar.Item>
+            <Sidebar.Item href="/dasboard/create-product">Create Product</Sidebar.Item>
+            <Sidebar.Item href="/dasboard/edit-product">Edit Product</Sidebar.Item>
+            <Sidebar.Item href="/dasboard/delete-product">Delete Proudct</Sidebar.Item>
             <Sidebar.Item href="#">Shipping</Sidebar.Item>
           </Sidebar.Collapse>
           <Sidebar.Item href="#" icon={HiInbox}>
