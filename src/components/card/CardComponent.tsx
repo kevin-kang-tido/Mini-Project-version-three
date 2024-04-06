@@ -41,8 +41,7 @@ const CardComponents = ({ title, price, image, description }: ProductType) => {
             ${price}
           </p>
           <Button
-            className="rounded-lg bg-[#ED6533] size-sm text-center text-sm font-medium text-white hover:bg-[#ED6533]"
-          >
+            className="rounded-lg bg-[#ED6533] size-sm text-center text-sm font-medium text-white hover:bg-[#ED6533]">
             Add to cart
           </Button>
         </div>
