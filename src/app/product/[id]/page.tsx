@@ -30,7 +30,7 @@ async function page({ params }: ParamProps) {
   const id = params.id;
   const productDetail = await getDetail(id);
   return (
-    <div>
+    <>
       <DetailProductCard
         title={productDetail.name}
         image={productDetail.image}
@@ -38,7 +38,7 @@ async function page({ params }: ParamProps) {
         price={productDetail.price}
       
       />
-    </div>
+    </>
   );
 }
 

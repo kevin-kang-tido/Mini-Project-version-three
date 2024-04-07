@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image';
 import React from 'react'
 
  const HeroSection = () => {
@@ -19,7 +20,7 @@ import React from 'react'
               </a> 
             </div>
             <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-              <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png" alt="mockup" />
+              <Image width={100} height={100} src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png" alt="mockup" />
             </div>                
           </div>
         </section>

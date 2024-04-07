@@ -1,38 +1,34 @@
 "use client";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import React, { useState } from "react";
-import * as Yup from "yup";
-import Image from "next/image";
+import React from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../constant/baseUri";
+import { ProductType } from "@/type/productType";
+import { validationSchema, fieldStyle, CustomInput } from "./EditProductForm";
 
-const FILE_SIZE = 1024 * 1024 * 5; // 5MB 
-const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png", "image/gif"];
-
-const validationSchema = Yup.object().shape({
-  image: Yup.mixed()
-    .test("fileSize", "File too large", (value: any) => {
-      if (!value) {
-        return true;
-      }
-      return value.size <= FILE_SIZE;
-    })
-    .test("fileFormat", "Unsupported Format", (value: any) => {
-      if (!value) {
-        return true;
-      }
-      return SUPPORTED_FORMATS.includes(value.type);
-    })
-    .required("Required"),
-});
-
-const fieldStyle = "border border-gray-300 rounded-md";
-
-const CreateProductForm = () => {
+export function EditProductForm({ title, price, image, description, qty, selectedProduct }: ProductType & { selectedProduct: { id: string } }) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE0NjcwNTg1LCJpYXQiOjE3MTI1MTA1ODUsImp0aSI6ImMwODU4MTFmZjNiNDRlNWU5YWUyNmQzOGI0OTNlNGYyIiwidXNlcl9pZCI6MTJ9.1FUM8l1yAQ65-TtNYD-UvUGNBrByltpGtPf1mcNhQpQ");
   myHeaders.append("Cookie", "csrftoken=ntSoeTzPXCbcUJyd4RYyQIIBQLulVNUHhpym1naPEocO7Uh46cH9pCBQ5J8u2jJT; sessionid=lt5uxhco8ur6sgu1v51bcrje4s8javez");
+  const handleUpdateProduct = async (values: any, imageData: any) => {
+    try {
+      // Send the image data to the server
+      const imageUrl = await handleSubmitToServer(imageData);
+
+      // Send a PUT request to update the product details
+      const response = await axios.put(`${BASE_API_URL}products/${selectedProduct.id}/`, {
+        ...values,
+        image: imageUrl,
+      }, {
+        headers: myHeaders,
+      });
+
+      console.log("Updated product:", response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmitToServer = async (values: any) => {
     try {
@@ -46,46 +42,40 @@ const CreateProductForm = () => {
     }
   };
 
-  const handleCreateProduct = async (values: any, imageData: any) => {
-    try {
-      const imageUrl = await handleSubmitToServer(imageData);
-      console.log("data: ", values);
-      const postData = await fetch(`${BASE_API_URL}products/`, {
-        method: "POST",
-        headers: myHeaders,
-        body: JSON.stringify({
-          ...values,
-          image: imageUrl,
-        }),
-      });
-      console.log("post data: ", postData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  // const handleCreateProduct = async (values: any, imageData: any) => {
+  //   try {
+  //     const imageUrl = await handleSubmitToServer(imageData);
+  //     console.log("data: ", values);
+  //     const postData = await fetch(`${BASE_API_URL}products/`, {
+  //       method: "POST",
+  //       headers: myHeaders,
+  //       body: JSON.stringify({
+  //         ...values,
+  //         image: imageUrl,
+  //       }),
+  //     });
+  //     console.log("post data: ", postData);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <div className="w-full pt-9">
       <Formik
         onSubmit={(values: any, { setSubmitting, resetForm }) => {
-          console.log(values);
           const formData = new FormData();
           formData.append("image", values.image);
-          handleCreateProduct(values, { image: formData });
+          handleUpdateProduct(values, { image: formData });
           setSubmitting(false);
           resetForm();
         }}
         validationSchema={validationSchema}
         initialValues={{
-          category: {
-            name: "Hiking shoes",
-            icon: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1693342954-rincon-3-64ee5ca62e001.jpg?crop=1xw:1xh;center,top&resize=980:*",
-          },
-          name: "",
-          desc: "",
+          name: title,
+          desc: description,
           image: undefined,
-          price: 0,
-          quantity: 0,
+          price: price,
+          quantity: qty,
         }}
       >
         {({ isSubmitting, setFieldValue }) => (
@@ -93,42 +83,38 @@ const CreateProductForm = () => {
             <div className="flex flex-col gap-2">
               <label htmlFor="name">Product Name: </label>
               <Field
-                placeholder="T-shirt"
+                placeholder={title}
                 className={fieldStyle}
                 name="name"
-                type="text"
-              />
+                type="text" />
             </div>
             {/* description */}
             <div className="flex flex-col gap-2">
               <label htmlFor="desc">Description: </label>
               <Field
-                placeholder="This is a t-shirt"
+                placeholder={description}
                 className={fieldStyle}
                 name="desc"
-                type="text"
-              />
+                type="text" />
             </div>
             {/* price */}
             <div className="flex flex-col gap-2">
               <label htmlFor="price">Price: </label>
               <Field
-                placeholder="100"
+                placeholder={price}
                 className={fieldStyle}
-                name="price"
-                type="number"
-              />
+                name={price}
+                type="number" />
 
             </div>
             {/* quantity */}
             <div className="flex flex-col gap-2">
-              <label htmlFor="price">Quantity: </label>
+              <label htmlFor="quantity">Quantity: </label>
               <Field
-                placeholder="1"
+                placeholder={qty}
                 className={fieldStyle}
                 name="quantity"
-                type="number"
-              />
+                type="number" />
               <div>
                 <Field
                   name="image"
@@ -138,6 +124,8 @@ const CreateProductForm = () => {
                   setFieldValue={setFieldValue} // Set Formik value
                   component={CustomInput} // component prop used to render the custom input
                 />
+
+                {/* <img src={image} className="w-[400px] h-[300px]" alt="image_product" /> */}
                 <ErrorMessage name="image">
                   {(msg) => <div className="text-danger">{msg}</div>}
                 </ErrorMessage>
@@ -149,48 +137,12 @@ const CreateProductForm = () => {
                 className="w-full px-4 py-3 bg-[#ED6533] text-white rounded-md"
                 disabled={isSubmitting}
               >
-                Create
+                Update
               </button>
             </div>
           </Form>
         )}
       </Formik>
-    </div>
-  );
-};
-
-export default CreateProductForm;
-
-// custom Input
-function CustomInput({ field, form, setFieldValue, ...props }: any) {
-  const [previewImage, setPreviewImage] = useState<string | undefined>(
-    undefined
-  );
-  const name = field.name;
-  const onChange: any = (event: any) => {
-    console.log("event:", event.currentTarget.files);
-    const file = event.currentTarget.files[0];
-    setFieldValue(name, file);
-    setPreviewImage(URL.createObjectURL(file));
-  };
-
-  return (
-    <div className="flex flex-col gap-4 justify-center">
-      <input
-        type="file"
-        onChange={onChange}
-        {...props}
-        className="border border-gray-300 rounded-md"
-      />
-      {previewImage && (
-        <Image
-          className="rounded-md"
-          src={previewImage}
-          alt="preview Image"
-          width={100}
-          height={100}
-        />
-      )}
     </div>
   );
 }

@@ -1,8 +1,18 @@
 export type ProductType = {
-    id?: string | number,
+    name?: string,
+    desc?: string,
+    id?:number,
     price:number |string,
-    title: string,
+    title?: string,
     image? : string,
-    description:string,
-    qty:number,
+    description?:string,
+    qty?:number
+}
+export type SingleProductType = {
+    name?: string,
+    id?:number,
+    price:number |string,
+    title?: string,
+    image? : string,
+    description?:string,
 }

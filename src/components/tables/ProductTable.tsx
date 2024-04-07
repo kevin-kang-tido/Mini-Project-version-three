@@ -18,7 +18,8 @@ import { ProductType } from '@/type/productType';
 import SearchBar from "./SearchBar";
 
 import { Card } from "flowbite-react";
-import EditProductForm from "../forms/EditProductForm";
+import { EditProductForm } from "../forms/EditProductForm.1";
+// import EditProductForm from "../forms/EditProductForm.1";
 
 
 const customStyles = {
@@ -78,13 +79,17 @@ const ProductTable = () => {
 
   const columns: TableColumn<ProductType>[] = [
     {
+      name:"ID",
+      selector: row=> row.id
+    },
+    {
       name: 'Category',
       selector: (row) => row.category,
       sortable:true,
     },
     {
       name: 'Name',
-      selector: row => row.name,
+      selector: row => row?.name,
       sortable:true,
     },
     {
@@ -96,7 +101,7 @@ const ProductTable = () => {
       name:"Image",
       selector: (row):any => 
       (
-        <img src={row.image} width={90} height={80} alt="products"/>
+        <Image src={row.image} width={90} height={80} alt="products"/>
       ), 
     },
     {

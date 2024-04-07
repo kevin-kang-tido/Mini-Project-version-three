@@ -1,15 +1,16 @@
 
 import { ProductType } from "@/type/productType";
 import { Button, Card } from "flowbite-react";
+import Image from "next/image";
 
-const CardComponents = ({ title, price, image, description }: ProductType) => {
+const CardComponents = ({ title, price, image, description}: any) => {
   return (
-    <div className=''>
+    <div>
       <Card
         className="max-w-sm h-[500px] bg-[#C3DDFD]"
         imgAlt="product image"
       >
-        <img src={image} alt="img_product" className="w-96 h-56 object-cover overflow-hidden rounded-lg"/>
+        <Image width={96} height={56} src={image} alt="img_product" className="w-96 h-56 object-cover overflow-hidden rounded-lg"/>
         <h5 className="text-lg font-bold tracking-tight text-gray-900 champ-line-2 dark:text-white">
           {title}
         </h5>
