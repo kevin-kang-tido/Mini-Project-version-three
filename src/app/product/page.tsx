@@ -11,7 +11,8 @@ import HeroSection from '@/components/layout/hero-section/HeroSection';
 import CardComponents from '@/components/card/CardComponent';
 
 async function fetchData() {
-  const data = await fetch("https://store.istad.co/api/products/")
+  const data = await fetch("https://store.istad.co/api/products")
+  // const data = await fetch("https://fakestoreapi.com/products")
   const res = await data.json()
   return res.results;
 }
@@ -33,7 +34,7 @@ export default async function ProductComponent(){
             products.map((product:ProductType)=>{
               return(
                 <Link href={`/product/${product.id}`} key={product.id}>
-                  <div className="gird grid-cols-2  md:grid-cols-4 sm:grid-cols-4">
+                  <div className="">
                   <CardComponents
                     title={product.name}
                     price={product.price}

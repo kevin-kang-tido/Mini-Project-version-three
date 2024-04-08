@@ -3,6 +3,7 @@ import Image from 'next/image'; // Assuming you're using Next.js for the Image c
 import { ProductType } from '@/type/productType';
 
 const DetailProductCard = ({ image, price, title, description }:ProductType) => {
+  const safeImage = image || '';
   return (
     <>
     <section className="my-9">
@@ -11,7 +12,7 @@ const DetailProductCard = ({ image, price, title, description }:ProductType) => 
         <div className="grid grid-cols-12 gap-4 container mx-12">
           <div className="col-span-12 rounded-lg md:col-span-12 lg:col-span-6 sm:h-auto h-[300px]" style={{ backgroundColor: '#C3DDFD' }}>
             <div className="flex items-center justify-center h-full p-4">
-              <Image width={100} height={100} className="w-full h-full rounded-lg object-cover rounded-5" src={image} alt="" />
+              <Image width={500} height={500} className="w-full h-full rounded-lg object-cover rounded-5" src={safeImage} alt="" />
             </div>
           </div>
           <div className="rounded-lg bg-blue-600 sm:col-span-12 md:col-span-12 lg:col-span-6 col-span-12 text-[11px] p-4 " style={{ backgroundColor: '#C3DDFD' }}>

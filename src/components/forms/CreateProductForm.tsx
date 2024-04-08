@@ -25,6 +25,9 @@ const validationSchema = Yup.object().shape({
     })
     .required("Required"),
 });
+function functionAlert() {
+  alert("Create Products Successfully");
+}
 
 const fieldStyle = "border border-gray-300 rounded-md";
 
@@ -118,7 +121,6 @@ const CreateProductForm = () => {
                 name="price"
                 type="number"
               />
-
             </div>
             {/* quantity */}
             <div className="flex flex-col gap-2">
@@ -148,6 +150,7 @@ const CreateProductForm = () => {
                 type="submit"
                 className="w-full px-4 py-3 bg-[#ED6533] text-white rounded-md"
                 disabled={isSubmitting}
+                onClick={()=>functionAlert()}
               >
                 Create
               </button>

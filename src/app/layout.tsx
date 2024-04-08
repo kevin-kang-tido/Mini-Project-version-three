@@ -4,6 +4,8 @@ import "./globals.css";
 import CardComponent from "@/components/card/CardComponent";
 import NavBarComponent from "@/components/layout/navbar/NavbarComponent";
 import FooterComponent from "@/components/layout/footer/FooterComponent";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import Error from "./error";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,9 +36,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NavBarComponent></NavBarComponent>
-        
-            {children}
-        
+          <ErrorBoundary errorComponent={Error}>
+          {children}
+          </ErrorBoundary>
         <FooterComponent></FooterComponent>
         </body>
     </html>

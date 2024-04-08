@@ -5,12 +5,12 @@ import Image from "next/image";
 
 const CardComponents = ({ title, price, image, description}: any) => {
   return (
-    <div>
+    <div className="gird grid-cols-2 sm:grid-cols-4  md:grid-cols-4">
       <Card
-        className="max-w-sm h-[500px] bg-[#C3DDFD]"
-        imgAlt="product image"
-      >
-        <Image width={96} height={56} src={image} alt="img_product" className="w-96 h-56 object-cover overflow-hidden rounded-lg"/>
+        className="max-w-sm h-[400px] bg-[#C3DDFD] shadow-md transition-transform duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+        imgAlt="product_image"
+      > 
+        <Image width={500} height={500} src={image} alt="img_product" className="w-96 h-56 overflow-hidden rounded-lg "/>
         <h5 className="text-lg font-bold tracking-tight text-gray-900 champ-line-2 dark:text-white">
           {title}
         </h5>
@@ -52,3 +52,6 @@ const CardComponents = ({ title, price, image, description}: any) => {
 };
 
 export default CardComponents;
+
+
+

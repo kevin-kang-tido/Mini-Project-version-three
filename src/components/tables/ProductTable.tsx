@@ -16,10 +16,8 @@ import Image from "next/image";
 import { BASE_API_URL } from "../constant/baseUri";
 import { ProductType } from '@/type/productType';
 import SearchBar from "./SearchBar";
-
 import { Card } from "flowbite-react";
-import { EditProductForm } from "../forms/EditProductForm.1";
-// import EditProductForm from "../forms/EditProductForm.1";
+import EditProductForm from "../forms/EditProductForm";
 
 
 const customStyles = {
@@ -146,6 +144,9 @@ const ProductTable = () => {
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(`${BASE_API_URL}products/`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
       const data = await response.json();
       setProducts(data.results);
       setFilteredProducts(data.results);
@@ -208,11 +209,13 @@ const ProductTable = () => {
               <ModalBody>
               {selectedProduct && (
                   <EditProductForm
+                     id = {selectedProduct.id}
                     title={selectedProduct.name}
                     description={selectedProduct.desc}
                     image={selectedProduct.image}
                     price={selectedProduct.price}
                     qty={selectedProduct.quantity}
+                    // selectedProduct={selectedProduct}
                   />
                 )}
               </ModalBody>

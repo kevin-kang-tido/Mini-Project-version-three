@@ -5,7 +5,7 @@ import React from 'react'
 
  const HeroSection = () => {
     return (
-        <section className="w-full bg-[#C3DDFD] dark:bg-gray-900 ">
+        <section className="w-full bg-[#C3DDFD] dark:bg-gray-900 shadow-md hover:shadow-sm-gray-300">
           <div className="grid mx-24 max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div className="mr-auto place-self-center lg:col-span-7">
               <h3 className="max-w-2xl mb-4 text-sm font-extrabold tracking-tight leading-none md:text-2xl xl:text-2xl dark:text-white">Life is short Buy Now</h3>
@@ -20,7 +20,7 @@ import React from 'react'
               </a> 
             </div>
             <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-              <Image width={100} height={100} src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png" alt="mockup" />
+              <Image width={500} height={500} src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png" alt="mockup" />
             </div>                
           </div>
         </section>
